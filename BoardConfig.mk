@@ -44,16 +44,18 @@ TARGET_NO_BOOTLOADER := true
 TARGET_NO_RADIOIMAGE := true
 
 # Kernel
-# Kernel
-TARGET_KERNEL_ARCH := arm64
-TARGET_KERNEL_HEADER_ARCH := arm64
-TARGET_KERNEL_CONFIG := exynos7870-j7y17lte_defconfig
-TARGET_KERNEL_SOURCE := kernel/samsung/exynos7870
-
-# Extracted with libbootimg
-BOARD_MKBOOTIMG_ARGS := --kernel_offset 0x00008000 --ramdisk_offset 0x01000000 --tags_offset 0x00000100 --dt $(OUT_DIR)/target/product/j7y17lte/obj/KERNEL_OBJ/arch/$(TARGET_ARCH)/boot/dtb.img
 BOARD_KERNEL_BASE := 0x10000000
-BOARD_KERNEL_IMAGE_NAME := Image dtb.img
+BOARD_KERNEL_PAGESIZE := 2048
+LZMA_RAMDISK_TARGETS := recovery,boot
+BOARD_RAMDISK_USE_LZMA := true
+BOARD_KERNEL_CMDLINE := androidboot.hardware=exynos9611
+BOARD_MKBOOTIMG_ARGS := --kernel_offset 0x00008000 --ramdisk_offset 0x01000000 --tags_offset 0x00000100 --header_version 2 --board SRPSG30B004RU
+BOARD_INCLUDE_RECOVERY_DTBO := true
+BOARD_INCLUDE_DTB_IN_BOOTIMG := true
+BOARD_KERNEL_IMAGE_NAME := Image
+TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilt/Image
+BOARD_PREBUILT_DTBOIMAGE := $(DEVICE_PATH)/prebuilt/recovery_dtbo
+BOARD_PREBUILT_DTBIMAGE_DIR := $(DEVICE_PATH)/prebuilt/dtb
 
 # Platform
 TARGET_BOARD_PLATFORM := exynos7870
